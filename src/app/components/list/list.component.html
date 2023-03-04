@@ -1,0 +1,45 @@
+<div class="container-fluid">
+      <app-navbar></app-navbar>
+  <div class="row">
+    <div class="col-6 mt-5 mb-4">
+      <a href="/nuevo"><button>Nuevo Registro</button></a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 me-5 table-responsive">
+          <table class="table">
+          <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Nombre/Apellidos</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Municipio</th>
+                <th>Codigo Postal</th>
+                <th>Acciones</th>
+              </tr>
+          </thead>
+            <tbody>
+              <tr *ngFor="let client of clients; let i = index">
+                <td>{{ i }}</td>
+                <td>{{ client.nombre }}</td>
+                <td>{{ client.telefono }}</td>
+                <td>{{ client.correo }}</td>
+                <td>{{ client.estado }}</td>
+                <td>{{ client.municipio }}</td>
+                <td>{{ client.cp }}</td>
+                <td>
+                  <button class="btn btn-success btn-lg">Editar</button>
+                  <br>
+                  <button class="btn btn-success btn-lg" (click)="deleteclient(i)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="col-auto">
+      <h5>aqui va el mapa</h5>
+    </div>
+  </div>
+</div>

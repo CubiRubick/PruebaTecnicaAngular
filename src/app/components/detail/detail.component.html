@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <div class="container-fluid">
+  <a href="">regresar</a>
+      <div class="row">
+        <div class="col-6">
+          <div class="mt-5 ms-5 mb-5" >Informacion del Cliente</div>
+        </div>
+        <div class="col-6">
+          <div class="mt-5 ms-5 mb-5">Ubicacion del Cliente</div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-6">
+            <form [formGroup]="formsgroup">
+            <div class="row ms-5">
+              <div class="col-6">
+                <label for="basic-url" class="form-label">ID del Usuario</label>
+                <div class="input-group input-group-lg mb-3">
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Nombre/Apellidos</label>
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" formControlName="nombre" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Telefono</label>
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" formControlName="telefono" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Correo</label>
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" formControlName="correo" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Fecha de Creacion</label>
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Referencia</label>
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" formControlName="referencia" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="basic-url" class="form-label">Estado</label>
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" formControlName="estado" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Municipio</label>
+                <div class="input-group input-group-lg mb-3">
+                    <input type="text" formControlName="municipio" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Colonia</label>
+                <div class="input-group input-group-lg mb-3">
+                    <input type="text" formControlName="colonia" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Calle</label>
+                <div class="input-group input-group-lg mb-3">
+                    <input type="text" formControlName="calle" class="form-control" placeholder="">
+                </div>
+                <label for="basic-url" class="form-label">Codigo Postal</label>
+                <div class="input-group input-group-lg mb-3">
+                    <input type="text" formControlName="cp" class="form-control" placeholder="12345">
+                </div>
+                <div class="input-group input-group-lg mb-3">
+                  <button>Buscar</button>
+                </div>
+              </div>
+              </div>
+            </form>
+        </div>
+        <div class="col-6">
+          aqui va el mapa
+        </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <button [disabled]="formsgroup.invalid" class="btn btn-success btn-lg" type="submit" (click)="crearUsuario()" >Aceptar</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

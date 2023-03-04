@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tarjetas-4b82a": {
+      "hosting": {
+        "Clientes": [
+          "tarjetas-4b82a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tarjetas-4b82a"
+  }
+}
