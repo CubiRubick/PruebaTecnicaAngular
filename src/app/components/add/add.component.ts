@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 import { ModelClientes } from 'src/models/Clientes';
 import { ClienteService } from 'src/services/cliente.service';
 
 @Component({
   selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.css']
 })
-export class DetailComponent implements OnInit {
+export class AddComponent implements OnInit {
 
   clients: any = [];
+  closeResult = '';
 
   formsgroup: FormGroup;
-  id: string | undefined;
 
-  constructor(private fb: FormBuilder, private clienteservice: ClienteService){
+  constructor(private fb: FormBuilder, private clienteservice: ClienteService, private modalService: NgbModal){
+
     this.formsgroup = this.fb.group({
       nombre:['', Validators.required],
       telefono:['', Validators.required],
@@ -28,8 +31,10 @@ export class DetailComponent implements OnInit {
       cp:['', Validators.required]
 
     });
+
   }
   ngOnInit(): void {
+
   }
 
   crearUsuario(){
@@ -47,6 +52,29 @@ export class DetailComponent implements OnInit {
     }
 
     this.clienteservice.addcliente(CLIENTE)
+  }
+
+  
+  open(content: any): void {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+        this.crearUsuario();
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      },
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }

@@ -47,6 +47,19 @@ export class ClienteService{
             )
     }
 
+    getbyidcliente(idx: number): void{
+        this.httpclient.get("https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json").subscribe(
+            value=>{
+                this.clients = value;
+                this.eventenitter.emit(value);
+            }
+        )
+    }
 
-
+    updatecliente(idx: number, cliente: ModelClientes): void{
+        let url = "https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json"
+        this.httpclient.put(url, cliente).subscribe(
+            response=> console.log("Cliente actualizado", response)
+            )
+    }
 }

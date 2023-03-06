@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-6 me-5 table-responsive">
+    <div class="col-7 me-5 ms-2 table-responsive">
           <table class="table">
           <thead>
             <tr>
@@ -30,9 +30,9 @@
                 <td>{{ client.municipio }}</td>
                 <td>{{ client.cp }}</td>
                 <td>
-                  <button class="btn btn-success btn-lg">Editar</button>
+                  <a href="editar/{{ i }}" ><button class="btn btn-success btn-lg">Editar</button></a>
                   <br>
-                  <button class="btn btn-success btn-lg" (click)="deleteclient(i)">Eliminar</button>
+                  <button class="btn btn-success btn-lg" (click)="open(content,i)">Eliminar</button>
                 </td>
               </tr>
             </tbody>
@@ -43,3 +43,17 @@
     </div>
   </div>
 </div>
+
+
+  <ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Alerta de Eliminacion</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<p>Esta seguro que quiere eliminar de forma permanente este cliente</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Eliminar</button>
+	</div>
+</ng-template>

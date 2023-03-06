@@ -1,11 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
   <div class="container-fluid">
   <a href="">regresar</a>
       <div class="row">
@@ -23,49 +15,49 @@
               <div class="col-6">
                 <label for="basic-url" class="form-label">ID del Usuario</label>
                 <div class="input-group input-group-lg mb-3">
-                    <input type="text" class="form-control" placeholder="">
+                    <input type="text" class="form-control" placeholder="" value="{{ id }}" disabled>
                 </div>
                 <label for="basic-url" class="form-label">Nombre/Apellidos</label>
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" formControlName="nombre" class="form-control" placeholder="">
+                  <input type="text" formControlName="nombre" class="form-control" placeholder="" value="{{ clients.nombre }}" Maxlength="100" Minlength="3">
                 </div>
                 <label for="basic-url" class="form-label">Telefono</label>
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" formControlName="telefono" class="form-control" placeholder="">
+                  <input type="text" formControlName="telefono" (keypress)="numberOnly($event)" class="form-control" placeholder="" value="{{ clients.telefono }}" Maxlength="10" Minlength="10">
                 </div>
                 <label for="basic-url" class="form-label">Correo</label>
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" formControlName="correo" class="form-control" placeholder="">
+                  <input type="email" name="email" [email]="true" formControlName="correo" class="form-control" placeholder="" value="{{ clients.correo }}">
                 </div>
                 <label for="basic-url" class="form-label">Fecha de Creacion</label>
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" class="form-control" placeholder="">
+                  <input type="text" class="form-control" placeholder="" value="{{ clients.fechaCreacion | date:'yyyy-MM-dd' }}" disabled>
                 </div>
                 <label for="basic-url" class="form-label">Referencia</label>
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" formControlName="referencia" class="form-control" placeholder="">
+                  <input type="text" formControlName="referencia" class="form-control" placeholder="" value="{{ clients.referencia }}" Maxlength="50" Minlength="5">
                 </div>
               </div>
               <div class="col-6">
                 <label for="basic-url" class="form-label">Estado</label>
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" formControlName="estado" class="form-control" placeholder="">
+                  <input type="text" formControlName="estado" class="form-control" placeholder="" value="{{ clients.estado }}" Maxlength="100" Minlength="5">
                 </div>
                 <label for="basic-url" class="form-label">Municipio</label>
                 <div class="input-group input-group-lg mb-3">
-                    <input type="text" formControlName="municipio" class="form-control" placeholder="">
+                    <input type="text" formControlName="municipio" class="form-control" placeholder="" value="{{ clients.municipio }}" Maxlength="100" Minlength="5">
                 </div>
                 <label for="basic-url" class="form-label">Colonia</label>
                 <div class="input-group input-group-lg mb-3">
-                    <input type="text" formControlName="colonia" class="form-control" placeholder="">
+                    <input type="text" formControlName="colonia" class="form-control" placeholder="" value="{{ clients.colonia }}" Maxlength="100" Minlength="5">
                 </div>
                 <label for="basic-url" class="form-label">Calle</label>
                 <div class="input-group input-group-lg mb-3">
-                    <input type="text" formControlName="calle" class="form-control" placeholder="">
+                    <input type="text" formControlName="calle" class="form-control" placeholder="" value="{{ clients.calle }}" Maxlength="100" Minlength="5">
                 </div>
                 <label for="basic-url" class="form-label">Codigo Postal</label>
                 <div class="input-group input-group-lg mb-3">
-                    <input type="text" formControlName="cp" class="form-control" placeholder="12345">
+                    <input type="text" formControlName="cp" (keypress)="numberOnly($event)" class="form-control" placeholder="12345" value="{{ clients.cp }}" Maxlength="5" Minlength="5">
                 </div>
                 <div class="input-group input-group-lg mb-3">
                   <button>Buscar</button>
@@ -80,10 +72,22 @@
     </div>
     <div class="row">
       <div class="col text-center">
-        <button [disabled]="formsgroup.invalid" class="btn btn-success btn-lg" type="submit" (click)="crearUsuario()" >Aceptar</button>
+        <button [disabled]="formsgroup.invalid" class="btn btn-success btn-lg" type="button" (click)="open(content)" >Aceptar</button>
+
       </div>
     </div>
   </div>
-</body>
-</html>
+
+  <ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Alerta de Actualizacion</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<p>Esta seguro que quiere actualizar los datos</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div>
+</ng-template>
 
