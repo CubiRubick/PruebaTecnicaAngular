@@ -2,9 +2,8 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModelClientes } from 'src/models/Clientes';
 import { ClienteService } from 'src/services/cliente.service';
-
-
-
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -13,6 +12,7 @@ import { ClienteService } from 'src/services/cliente.service';
 export class ListComponent implements OnInit {
 
   clients: ModelClientes[] = [];
+  datos: any = [];
   closeResult = '';
 
 
@@ -54,4 +54,41 @@ deleteclient(x: number){
       return `with: ${reason}`;
     }
   }
+
+download(){
+  this.clienteservice.downloadFile(this.clients, 'ListClientscsv');
+}
+
+
+openPDF(): void {
+const doc = new jsPDF('l', 'mm', 'a4');
+const head = [['id', 'nombre', 'telefono', 'Correo','estado', 'municipio', 'cp','FechaCracion']]
+  let datas: any = []
+if(this.datos.length > 0){
+  datas.push(this.datos)
+}
+if(datas.length > 0){
+  autoTable(doc, {
+    head: head,
+    body: datas,
+    didDrawCell: (data) => { },
+});
+
+doc.save('table.pdf');
+console.log("hola")
+
+this.datos = []
+
+}else{
+  alert("Se Requiere Seleccionar un cliente")
+}
+
+}
+
+obtenerdatos(x:ModelClientes){
+  const info = [this.clients.indexOf(x), x.nombre, x.telefono, x.correo, x.estado, x.municipio, x.cp, x.fechaCreacion]
+  this.datos = info
+}
+
+
 }

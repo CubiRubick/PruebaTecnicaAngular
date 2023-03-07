@@ -14,12 +14,12 @@
             <p class="fw-bold fs-3">Informacion del Cliente</p>
           </div>
           <div class="col-auto mt-2">
-            <button class="btn btn-danger me-2">Exportar PDF</button>
-            <button class="btn btn-success">Exportar Exel</button>
+            <button class="btn btn-danger me-2" (click)="openPDF()">Exportar PDF</button>
+            <button class="btn btn-success" (click)="download()">Exportar Exel</button>
           </div>
           </div>
           </div>
-          <table class="table table-light table-bordered ps-2 pe-2">
+          <table class="table table-light table-bordered ps-2 pe-2" id="htmlData">
           <thead class="table-secondary">
             <tr>
                 <th>Cliente</th>
@@ -33,7 +33,7 @@
               </tr>
           </thead>
             <tbody>
-              <tr *ngFor="let client of clients; let i = index">
+              <tr *ngFor="let client of clients; let i = index" (click)="obtenerdatos(client)">
                 <td>{{ i }}</td>
                 <td>{{ client.nombre }}</td>
                 <td>{{ client.telefono }}</td>
