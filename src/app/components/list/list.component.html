@@ -1,14 +1,26 @@
-<div class="container-fluid">
+<div class="container-fluid background vh-100 ">
       <app-navbar></app-navbar>
-  <div class="row">
-    <div class="col-6 mt-5 mb-4">
-      <a href="/nuevo"><button>Nuevo Registro</button></a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-7 me-5 ms-2 table-responsive">
-          <table class="table">
-          <thead>
+  <div class="row me-3 ms-3">
+    <div class="col-8 table-responsive mt-5">
+        <div class="row">
+        <div class="col-12 p-0 ">
+          <div class="mb-3 ">
+            <a href="/nuevo"><button class="btn btn-info btn-lg">Nuevo Registro</button></a>
+          </div>
+        </div>
+        <div class="col-12 bg-info rounded-top">
+        <div class="row">
+          <div class="col p-0 ms-3">
+            <p class="fw-bold fs-3">Informacion del Cliente</p>
+          </div>
+          <div class="col-auto mt-2">
+            <button class="btn btn-danger me-2">Exportar PDF</button>
+            <button class="btn btn-success">Exportar Exel</button>
+          </div>
+          </div>
+          </div>
+          <table class="table table-light table-bordered ps-2 pe-2">
+          <thead class="table-secondary">
             <tr>
                 <th>Cliente</th>
                 <th>Nombre/Apellidos</th>
@@ -37,6 +49,7 @@
               </tr>
             </tbody>
           </table>
+        </div>
     </div>
     <div class="col-auto">
       <h5>aqui va el mapa</h5>
