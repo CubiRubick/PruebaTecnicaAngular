@@ -63,12 +63,8 @@ export class ClienteService{
             )
     }
 
-
-
-
     downloadFile(data: any, filename='data'): void {
-        let csvData = this.ConvertToCSV(data, ['nombre','telefono', 'correo', 'referencia', 'estado','municipio','colonia','calle','cp']);
-        console.log(csvData)
+        let csvData = this.ConvertToCSV(data, ['nombre','telefono', 'correo', 'referencia', 'estado','municipio','colonia','calle','cp','fechaCreacion']);
         let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
         let dwldLink = document.createElement("a");
         let url = URL.createObjectURL(blob);

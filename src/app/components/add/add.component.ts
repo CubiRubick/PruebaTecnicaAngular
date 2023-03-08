@@ -52,6 +52,7 @@ export class AddComponent implements OnInit {
     }
 
     this.clienteservice.addcliente(CLIENTE)
+    this.formsgroup.reset()
   }
 
   

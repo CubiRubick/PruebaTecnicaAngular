@@ -51,8 +51,13 @@
           </table>
         </div>
     </div>
-    <div class="col-auto">
+    <div class="col">
       <h5>aqui va el mapa</h5>
+      <google-map 
+            [center]="center"
+            [zoom]="zoom">
+            <map-marker [position]="center" [label]="label" [title]="title"></map-marker>
+</google-map>
     </div>
   </div>
 </div>

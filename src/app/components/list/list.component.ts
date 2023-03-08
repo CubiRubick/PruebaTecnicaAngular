@@ -3,17 +3,28 @@ import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstra
 import { ModelClientes } from 'src/models/Clientes';
 import { ClienteService } from 'src/services/cliente.service';
 import { jsPDF } from "jspdf";
-import autoTable from 'jspdf-autotable'
+import autoTable from 'jspdf-autotable';
+import { Loader } from "@googlemaps/js-api-loader";
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
+
 export class ListComponent implements OnInit {
 
+  title = 'marca';
   clients: ModelClientes[] = [];
   datos: any = [];
   closeResult = '';
+  center = {lat: 21.125422198854523, lng: -101.68661297761284};
+  zoom = 13;
+  label = {
+    color: 'red',
+    text: 'Marcador'
+  }
+    // The marker, positioned at Uluru
+  display?: google.maps.LatLngLiteral;
 
 
 constructor(public clienteservice: ClienteService, private modalService: NgbModal){
@@ -89,6 +100,5 @@ obtenerdatos(x:ModelClientes){
   const info = [this.clients.indexOf(x), x.nombre, x.telefono, x.correo, x.estado, x.municipio, x.cp, x.fechaCreacion]
   this.datos = info
 }
-
 
 }

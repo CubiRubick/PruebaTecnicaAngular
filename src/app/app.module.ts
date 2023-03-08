@@ -7,6 +7,7 @@ import { AddComponent } from './components/add/add.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {GoogleMapsModule} from '@angular/google-maps';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './components/list/list.component';
 import { ClienteService } from 'src/services/cliente.service';
@@ -35,6 +36,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
