@@ -30,14 +30,14 @@ export class AddComponent implements OnInit {
 
     /* Creating a form group with the name of the form and the validators. */
     this.formsgroup = this.fb.group({
-      nombre:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       telefono:['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       correo:['', [Validators.required, Validators.email]],
-      referencia:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      estado:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      municipio:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      colonia:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      calle:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      referencia:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      estado:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      municipio:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      colonia:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      calle:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       cp:['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]]
 
     });
