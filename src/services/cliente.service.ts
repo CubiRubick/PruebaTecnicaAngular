@@ -12,6 +12,8 @@ export class ClienteService{
     private baseUrl = 'https://listclientes-default-rtdb.firebaseio.com'
     private collection = 'Clientes.json'
     private path = `${this.baseUrl}/${this.collection}`;
+    latin: any = {}
+    markerId = 0;
     eventenitter = new EventEmitter();
     constructor(private httpclient: HttpClient){
         this.getcliente();
@@ -97,7 +99,22 @@ export class ClienteService{
              str += line + '\r\n';
          }
          return str;
-     }
+    }
+
+   async createByAddress(address: any) {
+        var geocoder = new google.maps.Geocoder();
+       await geocoder.geocode({'address': address},(result: any, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                var firstaddress = result[0]
+                var latitud = firstaddress.geometry.location.lat();
+                var longitud = firstaddress.geometry.location.lng();
+                this.latin = {lat: latitud, lng: longitud}
+            }
+
+
+        });
+        return this.latin;
+    }
 
 
 }

@@ -45,6 +45,8 @@
                   <a href="editar/{{ i }}" ><button class="btn btn-success btn-lg">Editar</button></a>
                   <br>
                   <button class="btn btn-success btn-lg" (click)="open(content,i)">Eliminar</button>
+                  <br>
+                  <button class="btn btn-success btn-lg" (click)="mostrarUbicacion(client)">Buscar</button>
                 </td>
               </tr>
             </tbody>
@@ -52,11 +54,10 @@
         </div>
     </div>
     <div class="col">
-      <h5>aqui va el mapa</h5>
       <google-map 
             [center]="center"
             [zoom]="zoom">
-            <map-marker [position]="center" [label]="label" [title]="title"></map-marker>
+            <map-marker *ngFor="let ubi of latin" [position]="ubi" [label]="label" [title]="title"></map-marker>
 </google-map>
     </div>
   </div>

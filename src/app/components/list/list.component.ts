@@ -15,8 +15,10 @@ export class ListComponent implements OnInit {
 
   title = 'marca';
   clients: ModelClientes[] = [];
+  latin: any = [];
   datos: any = [];
   closeResult = '';
+  addess=''
   center = {lat: 21.125422198854523, lng: -101.68661297761284};
   zoom = 13;
   label = {
@@ -36,7 +38,6 @@ constructor(public clienteservice: ClienteService, private modalService: NgbModa
 
 
 ngOnInit(): void {
-
   }
 
 deleteclient(x: number){
@@ -86,7 +87,6 @@ if(datas.length > 0){
 });
 
 doc.save('table.pdf');
-console.log("hola")
 
 this.datos = []
 
@@ -100,5 +100,17 @@ obtenerdatos(x:ModelClientes){
   const info = [this.clients.indexOf(x), x.nombre, x.telefono, x.correo, x.estado, x.municipio, x.cp, x.fechaCreacion]
   this.datos = info
 }
+
+mostrarUbicacion(x:ModelClientes){
+  const ubicacion = x.cp+","+x.municipio+","+x.estado
+  this.clienteservice.createByAddress(ubicacion).then(response =>{
+    this.latin.push(response)
+    console.log(this.latin)
+  })
+
+
+
+}
+
 
 }
