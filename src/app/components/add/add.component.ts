@@ -14,21 +14,30 @@ export class AddComponent implements OnInit {
 
   clients: any = [];
   closeResult = '';
+  title = 'marca';
+  center = {lat: 21.125422198854523, lng: -101.68661297761284};
+  zoom = 13;
+  date= new Date();
+  label = {
+    color: 'red',
+    text: 'Marcador'
+  }
+  ubicacion: any = {};
 
   formsgroup: FormGroup;
 
   constructor(private fb: FormBuilder, private clienteservice: ClienteService, private modalService: NgbModal){
 
     this.formsgroup = this.fb.group({
-      nombre:['', Validators.required],
-      telefono:['', Validators.required],
-      correo:['', Validators.required],
-      referencia:['', Validators.required],
-      estado:['', Validators.required],
-      municipio:['', Validators.required],
-      colonia:['', Validators.required],
-      calle:['', Validators.required],
-      cp:['', Validators.required]
+      nombre:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      telefono:['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      correo:['', [Validators.required, Validators.email]],
+      referencia:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      estado:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      municipio:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      colonia:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      calle:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      cp:['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]]
 
     });
 
@@ -51,11 +60,18 @@ export class AddComponent implements OnInit {
       fechaCreacion: new Date(),
     }
 
-    this.clienteservice.addcliente(CLIENTE)
-    this.formsgroup.reset()
+    if(this.formsgroup.valid){
+      this.clienteservice.addcliente(CLIENTE)
+      this.formsgroup.reset()
+      alert("Cliente Agregado Correctamente")
+
+    }else{
+      alert("No se Pudo Agregar el Cliente ")
+    }
+
   }
 
-  
+
   open(content: any): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
@@ -76,6 +92,24 @@ export class AddComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
+
+  mostrarUbicacion(){
+    var datos = this.formsgroup.value.calle+","+this.formsgroup.value.cp+","+this.formsgroup.value.colonia+","+this.formsgroup.value.municipio+","+this.formsgroup.value.estado
+    this.clienteservice.createByAddress(datos).then(response =>{
+      this.ubicacion = response
+      console.log(this.ubicacion)
+       console.log(response)
+    })
   }
 
 }

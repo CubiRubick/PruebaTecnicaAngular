@@ -1,10 +1,10 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModelClientes } from 'src/models/Clientes';
 import { ClienteService } from 'src/services/cliente.service';
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
-import { Loader } from "@googlemaps/js-api-loader";
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -30,12 +30,18 @@ export class ListComponent implements OnInit {
 
 
 constructor(public clienteservice: ClienteService, private modalService: NgbModal){
-      this.clienteservice.eventenitter.subscribe(
-      clientlist=> {this.clients = clientlist;
-      }
-    );
+    //   this.clienteservice.eventenitter.subscribe(
+    //   clientlist=> {this.clients = clientlist;
+    //   }
+    // );
+    if(this.clienteservice.clients.length == 0){
+      this.clienteservice.getcliente().subscribe((response:any)=>{
+        this.clients = response
+        this.clienteservice.clients = response
+        console.log(response)
+      })
+    }
 }
-
 
 ngOnInit(): void {
   }
@@ -105,12 +111,10 @@ mostrarUbicacion(x:ModelClientes){
   const ubicacion = x.cp+","+x.municipio+","+x.estado
   this.clienteservice.createByAddress(ubicacion).then(response =>{
     this.latin.push(response)
-    console.log(this.latin)
   })
 
 
 
 }
-
 
 }

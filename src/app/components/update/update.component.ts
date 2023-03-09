@@ -11,32 +11,29 @@ import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstra
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-    clients: any = []
+    client: any = {}
     closeResult = '';
+    title = 'marca';
     id: any
-    formsgroup: FormGroup;
+    center = {lat: 21.125422198854523, lng: -101.68661297761284};
+    zoom = 13;
+    ubicacion: any = {};
+    label = {
+      color: 'red',
+      text: 'Marcador'
+    }
+    formsgroup!: FormGroup;
+    VendedorForm: any;
+
 
     constructor(private fb: FormBuilder, private router: ActivatedRoute, private clienteservice: ClienteService, private modalService: NgbModal) {
 
-      this.clienteservice.eventenitter.subscribe(
-        clientlist=> {this.clients = clientlist;
-        }
-      );
-
-      this.formsgroup = this.fb.group({
-      nombre:['', Validators.required],
-      telefono:['', Validators.required],
-      correo:['', Validators.required],
-      referencia:['', Validators.required],
-      estado:['', Validators.required],
-      municipio:['', Validators.required],
-      colonia:['', Validators.required],
-      calle:['', Validators.required],
-      cp:['', Validators.required]
-
-    });
-
-    
+      this.formulario()
+      this.clienteservice.getbyidcliente(this.idclientes()).subscribe((response:any)=>{
+        this.client = response
+        this.formulario(response)
+      })
+      this.id = this.idclientes();
     }
 
     open(content: any): void {
@@ -61,13 +58,10 @@ export class UpdateComponent implements OnInit {
       }
     }
 
-    ngOnInit(): void {
-        this.clienteservice.getbyidcliente(this.idclientes())
-        this.id = this.idclientes();
-    }
+    ngOnInit(): void {}
 
     actualizarUsuario(){
-      let modifyclient = this.clients
+      let modifyclient = this.client
 
       modifyclient.nombre=this.formsgroup.value.nombre,
       modifyclient.telefono=this.formsgroup.value.telefono,
@@ -77,9 +71,15 @@ export class UpdateComponent implements OnInit {
       modifyclient.municipio=this.formsgroup.value.municipio,
       modifyclient.colonia=this.formsgroup.value.colonia,
       modifyclient.calle=this.formsgroup.value.calle,
-      modifyclient.cp=this.formsgroup.value.cp,
+      modifyclient.cp=this.formsgroup.value.cp;
 
-     this.clienteservice.updatecliente(this.idclientes(),modifyclient)
+      if(this.formsgroup.valid){
+        this.clienteservice.updatecliente(this.idclientes(),modifyclient)
+        alert("Cliente Actualizado Correctamente")
+
+      }else{
+        alert("No se Pudo Actualizar el Cliente ")
+      }
 
     }
     idclientes(){
@@ -93,6 +93,31 @@ export class UpdateComponent implements OnInit {
       }
       return true;
   
+    }
+
+    mostrarUbicacion(){
+      var datos = this.formsgroup.value.calle+","+this.formsgroup.value.cp+","+this.formsgroup.value.colonia+","+this.formsgroup.value.municipio+","+this.formsgroup.value.estado
+      this.clienteservice.createByAddress(datos).then(response =>{
+        this.ubicacion = response
+        console.log(this.ubicacion)
+         console.log(response)
+      })
+    }
+
+
+
+    formulario(valor?:ModelClientes){
+      this.formsgroup = this.fb.group({
+        nombre:[valor?.nombre||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        telefono:[valor?.telefono||'', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+        correo:[valor?.correo||'', [Validators.required, Validators.email]],
+        referencia:[valor?.referencia||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        estado:[valor?.estado||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        municipio:[valor?.municipio||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        colonia:[valor?.colonia||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        calle:[valor?.calle||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        cp:[valor?.cp||'', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+      });
     }
 }
 

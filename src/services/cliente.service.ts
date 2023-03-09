@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ClienteService{
     clients: any = [];
+    client: any = {}
     private baseUrl = 'https://listclientes-default-rtdb.firebaseio.com'
     private collection = 'Clientes.json'
     private path = `${this.baseUrl}/${this.collection}`;
@@ -16,16 +17,11 @@ export class ClienteService{
     markerId = 0;
     eventenitter = new EventEmitter();
     constructor(private httpclient: HttpClient){
-        this.getcliente();
+
     }
 
-    getcliente(): void{
-        this.httpclient.get(this.path).subscribe(
-            value=>{
-              this.clients = value;
-              this.eventenitter.emit(value);
-            }
-          )
+    getcliente(){
+       return this.httpclient.get(this.path)
     }
 
     addcliente(cliente: ModelClientes): void{
@@ -49,19 +45,14 @@ export class ClienteService{
             )
     }
 
-    getbyidcliente(idx: number): void{
-        this.httpclient.get("https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json").subscribe(
-            value=>{
-                this.clients = value;
-                this.eventenitter.emit(value);
-            }
-        )
+    getbyidcliente(idx: number){
+      return this.httpclient.get("https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json")
     }
 
     updatecliente(idx: number, cliente: ModelClientes): void{
         let url = "https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json"
         this.httpclient.put(url, cliente).subscribe(
-            response=> console.log("Cliente actualizado", response)
+            response=> console.log("Cliente actualizado")
             )
     }
 

@@ -1,3 +1,13 @@
 .background{
     background-color: #cbd3e7;
 }
+
+ .container-grafica {
+    max-height: 51rem; 
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    overflow:scroll;
+  }
