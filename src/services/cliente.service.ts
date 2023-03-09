@@ -20,10 +20,19 @@ export class ClienteService{
 
     }
 
+   /**
+    * It returns an observable of the httpclient get request.
+    * @returns The httpclient.get() method returns an Observable.
+    */
     getcliente(){
        return this.httpclient.get(this.path)
     }
 
+    /**
+     * It adds a client to the array of clients, then it sends the array to the server, and then it
+     * emits the array to the client.
+     * @param {ModelClientes} cliente - ModelClientes
+     */
     addcliente(cliente: ModelClientes): void{
         this.clients.push(cliente);
         this.httpclient.put(this.path, this.clients).subscribe(
@@ -34,6 +43,11 @@ export class ClienteService{
         )
     }
 
+    /**
+     * It deletes a client from the array of clients, then it updates the array of clients in the
+     * database, and then it emits the updated array of clients.
+     * @param {number} idx - number - the index of the client to be deleted
+     */
     deletecliente(idx: number): void{
         this.clients = this.clients.filter(
             (x: any, index: number) => index != idx);
@@ -45,10 +59,22 @@ export class ClienteService{
             )
     }
 
+   /**
+    * It returns the data of the client with the idx number
+    * @param {number} idx - number
+    * @returns The data from the database.
+    */
     getbyidcliente(idx: number){
       return this.httpclient.get("https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json")
     }
 
+    /**
+     * The function takes in the index of the client and the client object, then it creates a url to
+     * the client's location in the database, and then it uses the httpclient to put the client object
+     * in the database
+     * @param {number} idx - number, cliente: ModelClientes
+     * @param {ModelClientes} cliente - ModelClientes
+     */
     updatecliente(idx: number, cliente: ModelClientes): void{
         let url = "https://listclientes-default-rtdb.firebaseio.com/Clientes/"+idx+".json"
         this.httpclient.put(url, cliente).subscribe(
@@ -56,6 +82,7 @@ export class ClienteService{
             )
     }
 
+    /* A function that converts the data into a csv file. */
     downloadFile(data: any, filename='data'): void {
         let csvData = this.ConvertToCSV(data, ['nombre','telefono', 'correo', 'referencia', 'estado','municipio','colonia','calle','cp','fechaCreacion']);
         let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
@@ -92,6 +119,11 @@ export class ClienteService{
          return str;
     }
 
+   /**
+    * It takes an address, converts it to lat/long, and returns the lat/long.
+    * @param {any} address - any
+    * @returns The value of this.latin is being returned.
+    */
    async createByAddress(address: any) {
         var geocoder = new google.maps.Geocoder();
        await geocoder.geocode({'address': address},(result: any, status) => {

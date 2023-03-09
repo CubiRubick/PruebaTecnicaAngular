@@ -108,7 +108,7 @@ if(datas.length > 0){
     didDrawCell: (data) => { },
 });
 
-doc.save('table.pdf');
+doc.save('ReporteCliente.pdf');
 
 this.datos = []
 
