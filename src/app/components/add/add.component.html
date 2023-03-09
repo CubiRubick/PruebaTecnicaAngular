@@ -11,16 +11,17 @@
         <div class="col-6">
             <form [formGroup]="formsgroup">
             <div class="row ms-5">
+            <h6 style="color:red">campos requeridos indicados con *</h6>
               <div class="col-6">
-                <label for="basic-url" class="form-label text-primary">Nombre/Apellidos</label>
+                <label for="basic-url" class="form-label text-primary">Nombre/Apellidos *</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="nombre" class="form-control" placeholder="" value="" Maxlength="100" Minlength="3" required>
                 </div>
-                <label for="basic-url" class="form-label text-primary">Telefono</label>
+                <label for="basic-url" class="form-label text-primary">Telefono *</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="telefono" (keypress)="numberOnly($event)" class="form-control" placeholder="" Maxlength="10" Minlength="10">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Correo</label>
+                <label for="basic-url" class="form-label text-primary">Correo *</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="correo" name="email" [email]="true" class="form-control" placeholder="">
                 </div>
@@ -28,29 +29,29 @@
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" class="form-control" placeholder="" value="{{ date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
-                <label for="basic-url" class="form-label text-primary">Referencia</label>
+                <label for="basic-url" class="form-label text-primary">Referencia *</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="referencia" class="form-control" placeholder="">
                 </div>
               </div>
               <div class="col-6">
-                <label for="basic-url" class="form-label text-primary">Estado</label>
+                <label for="basic-url" class="form-label text-primary">Estado *</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="estado" class="form-control" placeholder="" Maxlength="50" Minlength="5">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Municipio</label>
+                <label for="basic-url" class="form-label text-primary">Municipio *</label>
                 <div class="input-group input-group-lg mb-3">
                     <input type="text" formControlName="municipio" class="form-control" placeholder="" Maxlength="100" Minlength="5">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Colonia</label>
+                <label for="basic-url" class="form-label text-primary">Colonia *</label>
                 <div class="input-group input-group-lg mb-3">
                     <input type="text" formControlName="colonia" class="form-control" placeholder="" Maxlength="100" Minlength="5">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Calle</label>
+                <label for="basic-url" class="form-label text-primary">Calle *</label>
                 <div class="input-group input-group-lg mb-3">
                     <input type="text" formControlName="calle" class="form-control" placeholder="" Maxlength="100" Minlength="5">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Codigo Postal</label>
+                <label for="basic-url" class="form-label text-primary">Codigo Postal *</label>
                 <div class="input-group input-group-lg mb-3">
                     <input type="text" formControlName="cp" class="form-control" (keypress)="numberOnly($event)" placeholder="12345" Maxlength="5" Minlength="5">
                 </div>
