@@ -27,6 +27,8 @@ export class UpdateComponent implements OnInit {
 
 
     constructor(private fb: FormBuilder, private router: ActivatedRoute, private clienteservice: ClienteService, private modalService: NgbModal) {
+/* The above code is getting the id of the client from the url and then using that id to get the client
+information from the database. */
 
       this.formulario()
       this.clienteservice.getbyidcliente(this.idclientes()).subscribe((response:any)=>{
@@ -35,6 +37,7 @@ export class UpdateComponent implements OnInit {
       })
       this.id = this.idclientes();
     }
+/* This is the code that is used to open the modal and then close it. */
 
     open(content: any): void {
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -59,6 +62,9 @@ export class UpdateComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+/**
+ * This function is used to update the client data.
+ */
 
     actualizarUsuario(){
       let modifyclient = this.client
@@ -82,9 +88,20 @@ export class UpdateComponent implements OnInit {
       }
 
     }
+
+/**
+ * It returns the value of the id parameter in the URL
+ * @returns The id of the client
+ */
     idclientes(){
       return this.router.snapshot.params['id']
     }
+/**
+ * It returns true if the key pressed is a number, and false if it's not
+ * @param {any} event - any - This is the event that is triggered when the user types in the input
+ * field.
+ * @returns A boolean value.
+ */
 
     numberOnly(event: any): boolean {
       const charCode = (event.which) ? event.which : event.keyCode;
@@ -92,8 +109,10 @@ export class UpdateComponent implements OnInit {
         return false;
       }
       return true;
-  
     }
+/**
+ * It takes the address from the form and sends it to the service to get the coordinates.
+ */
 
     mostrarUbicacion(){
       var datos = this.formsgroup.value.calle+","+this.formsgroup.value.cp+","+this.formsgroup.value.colonia+","+this.formsgroup.value.municipio+","+this.formsgroup.value.estado
@@ -105,6 +124,11 @@ export class UpdateComponent implements OnInit {
     }
 
 
+/**
+ * It creates a form group with the fields that we want to validate.
+ * @param {ModelClientes} [valor] - This is the value that is passed to the form, in this case it is
+ * the value of the client that is being edited.
+ */
 
     formulario(valor?:ModelClientes){
       this.formsgroup = this.fb.group({

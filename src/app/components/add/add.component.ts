@@ -28,6 +28,7 @@ export class AddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private clienteservice: ClienteService, private modalService: NgbModal){
 
+    /* Creating a form group with the name of the form and the validators. */
     this.formsgroup = this.fb.group({
       nombre:['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       telefono:['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
@@ -45,6 +46,9 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
 
   }
+/**
+ * It creates a new client.
+ */
 
   crearUsuario(){
     const CLIENTE: ModelClientes = {
@@ -71,6 +75,7 @@ export class AddComponent implements OnInit {
 
   }
 
+/* A function that opens a modal. */
 
   open(content: any): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -93,6 +98,12 @@ export class AddComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+/**
+ * It returns true if the key pressed is a number, and false if it's not
+ * @param {any} event - any - This is the event that is triggered when the user types in the input
+ * field.
+ * @returns a boolean value.
+ */
 
   numberOnly(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
@@ -102,6 +113,9 @@ export class AddComponent implements OnInit {
     return true;
 
   }
+/**
+ * It takes the address from the form and sends it to the service to get the coordinates.
+ */
 
   mostrarUbicacion(){
     var datos = this.formsgroup.value.calle+","+this.formsgroup.value.cp+","+this.formsgroup.value.colonia+","+this.formsgroup.value.municipio+","+this.formsgroup.value.estado

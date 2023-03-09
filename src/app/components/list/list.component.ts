@@ -30,10 +30,9 @@ export class ListComponent implements OnInit {
 
 
 constructor(public clienteservice: ClienteService, private modalService: NgbModal){
-    //   this.clienteservice.eventenitter.subscribe(
-    //   clientlist=> {this.clients = clientlist;
-    //   }
-    // );
+
+/* Checking if the clienteservice.clients array is empty, if it is, it is calling the getcliente()
+method from the clienteservice.ts file. */
     if(this.clienteservice.clients.length == 0){
       this.clienteservice.getcliente().subscribe((response:any)=>{
         this.clients = response
@@ -45,12 +44,17 @@ constructor(public clienteservice: ClienteService, private modalService: NgbModa
 
 ngOnInit(): void {
   }
+/**
+ * It deletes a client.
+ * @param {number} x - number
+ */
 
 deleteclient(x: number){
     this.clienteservice.deletecliente(x)
   }
 
-  
+/* A function that opens a modal. */
+
   open(content: any, x:number): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
@@ -72,12 +76,24 @@ deleteclient(x: number){
       return `with: ${reason}`;
     }
   }
+/**
+ * The function download() is called when the user clicks on the download button. The function
+ * download() calls the function downloadFile() from the service clienteservice. The function
+ * downloadFile() receives the data to be downloaded (this.clients) and the name of the file
+ * (ListClientscsv)
+ */
 
 download(){
   this.clienteservice.downloadFile(this.clients, 'ListClientscsv');
 }
 
 
+/**
+ * I'm trying to create a pdf file with the data of a table, but I can't get the data from the table,
+ * I'm using the library jsPDF and autoTable, I'm using Angular 8.
+ * 
+ * I hope you can help me, thank you very much.
+ */
 openPDF(): void {
 const doc = new jsPDF('l', 'mm', 'a4');
 const head = [['id', 'nombre', 'telefono', 'Correo','estado', 'municipio', 'cp','FechaCracion']]
@@ -101,20 +117,26 @@ this.datos = []
 }
 
 }
+/**
+ * It takes a ModelClientes object and returns an array of the object's properties.
+ * @param {ModelClientes} x - ModelClientes
+ */
 
 obtenerdatos(x:ModelClientes){
   const info = [this.clients.indexOf(x), x.nombre, x.telefono, x.correo, x.estado, x.municipio, x.cp, x.fechaCreacion]
   this.datos = info
 }
 
+/**
+ * It takes a ModelClientes object, creates a string from its properties, and then uses that string to
+ * create a new object.
+ * @param {ModelClientes} x - ModelClientes
+ */
 mostrarUbicacion(x:ModelClientes){
   const ubicacion = x.cp+","+x.municipio+","+x.estado
   this.clienteservice.createByAddress(ubicacion).then(response =>{
     this.latin.push(response)
   })
-
-
-
 }
 
 }
