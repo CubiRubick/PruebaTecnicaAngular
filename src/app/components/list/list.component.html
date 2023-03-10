@@ -11,11 +11,11 @@
         <div class="col-12 bg-info rounded-top">
         <div class="row ">
           <div class="col p-0 ms-3">
-            <p class="fw-bold fs-3">Informacion del Cliente</p>
+            <p class="fw-bold fs-3">Información del Cliente</p>
           </div>
           <div class="col-auto mt-2">
             <button class="btn btn-danger me-2" (click)="openPDF()">Exportar PDF</button>
-            <button class="btn btn-success" (click)="download()">Exportar Exel</button>
+            <button class="btn btn-success" (click)="download()">Exportar Excel</button>
           </div>
           </div>
           </div>
@@ -25,11 +25,11 @@
             <tr>
                 <th>Cliente</th>
                 <th>Nombre/Apellidos</th>
-                <th>Telefono</th>
+                <th>Telófono</th>
                 <th>Correo</th>
                 <th>Estado</th>
                 <th>Municipio</th>
-                <th>Codigo Postal</th>
+                <th>Código Postal</th>
                 <th>Acciones</th>
               </tr>
           </thead>
@@ -68,11 +68,11 @@
 
   <ng-template #content let-modal>
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Alerta de Eliminacion</h4>
+		<h4 class="modal-title" id="modal-basic-title">Alerta de Eliminación</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
-		<p>Esta seguro que quiere eliminar de forma permanente este cliente</p>
+		<p>Esta seguro que quiere Eliminar de forma permanente este cliente</p>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Eliminar</button>

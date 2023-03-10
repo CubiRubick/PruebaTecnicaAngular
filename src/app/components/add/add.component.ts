@@ -12,7 +12,7 @@ import { ClienteService } from 'src/services/cliente.service';
 })
 export class AddComponent implements OnInit {
 
-  clients: any = [];
+  clients:any = [];
   closeResult = '';
   title = 'marca';
   center = {lat: 21.125422198854523, lng: -101.68661297761284};
@@ -28,6 +28,13 @@ export class AddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private clienteservice: ClienteService, private modalService: NgbModal){
 
+    if(this.clienteservice.clients.length == 0){
+      this.clienteservice.getcliente().subscribe((response:any)=>{
+        this.clients = response
+        this.clienteservice.llenarCliente(response)
+        console.log(response)
+      })
+    }
     /* Creating a form group with the name of the form and the validators. */
     this.formsgroup = this.fb.group({
       nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -63,15 +70,9 @@ export class AddComponent implements OnInit {
       cp: this.formsgroup.value.cp,
       fechaCreacion: new Date(),
     }
-
-    if(this.formsgroup.valid){
       this.clienteservice.addcliente(CLIENTE)
       this.formsgroup.reset()
-      alert("Cliente Agregado Correctamente")
 
-    }else{
-      alert("No se Pudo Agregar el Cliente ")
-    }
 
   }
 

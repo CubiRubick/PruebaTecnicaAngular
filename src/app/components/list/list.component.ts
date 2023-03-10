@@ -36,7 +36,7 @@ method from the clienteservice.ts file. */
     if(this.clienteservice.clients.length == 0){
       this.clienteservice.getcliente().subscribe((response:any)=>{
         this.clients = response
-        this.clienteservice.clients = response
+        this.clienteservice.llenarCliente(response)
         console.log(response)
       })
     }

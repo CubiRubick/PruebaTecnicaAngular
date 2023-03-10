@@ -1,10 +1,10 @@
   <div class="container-fluid background vh-100">
       <div class="row">
         <div class="col-6">
-          <div class="mt-5 ms-5 mb-5 fs-2 border-bottom border-dark">Informacion del Cliente</div>
+          <div class="mt-5 ms-5 mb-5 fs-2 border-bottom border-dark">Información del Cliente</div>
         </div>
         <div class="col-6">
-          <div class="mt-5 ms-5 mb-5 fs-2 border-bottom border-dark">Ubicacion del Cliente</div>
+          <div class="mt-5 ms-5 mb-5 fs-2 border-bottom border-dark">Ubicación del Cliente</div>
         </div>
       </div>
     <div class="row">
@@ -17,7 +17,7 @@
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="nombre" class="form-control" placeholder="" value="" Maxlength="100" Minlength="3" required>
                 </div>
-                <label for="basic-url" class="form-label text-primary">Telefono *</label>
+                <label for="basic-url" class="form-label text-primary">Telefóno *</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="telefono" (keypress)="numberOnly($event)" class="form-control" placeholder="" Maxlength="10" Minlength="10">
                 </div>
@@ -25,7 +25,7 @@
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" formControlName="correo" name="email" [email]="true" class="form-control" placeholder="">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Fecha de Creacion</label>
+                <label for="basic-url" class="form-label text-primary">Fecha de Creación</label>
                 <div class="input-group input-group-lg mb-3">
                   <input type="text" class="form-control" placeholder="" value="{{ date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="input-group input-group-lg mb-3">
                     <input type="text" formControlName="calle" class="form-control" placeholder="" Maxlength="100" Minlength="5">
                 </div>
-                <label for="basic-url" class="form-label text-primary">Codigo Postal *</label>
+                <label for="basic-url" class="form-label text-primary">Código Postal *</label>
                 <div class="input-group input-group-lg mb-3">
                     <input type="text" formControlName="cp" class="form-control" (keypress)="numberOnly($event)" placeholder="12345" Maxlength="5" Minlength="5">
                 </div>
@@ -82,7 +82,7 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
-		<p>Al dar aceptar agregaras este cliente deseas agregarlo?</p>
+		<p>Al dar Agregar agregaras este cliente deseas agregarlo?</p>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Agregar</button>

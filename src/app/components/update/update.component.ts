@@ -78,7 +78,7 @@ information from the database. */
       modifyclient.colonia=this.formsgroup.value.colonia,
       modifyclient.calle=this.formsgroup.value.calle,
       modifyclient.cp=this.formsgroup.value.cp;
-
+      
       if(this.formsgroup.valid){
         this.clienteservice.updatecliente(this.idclientes(),modifyclient)
         alert("Cliente Actualizado Correctamente")
@@ -132,15 +132,15 @@ information from the database. */
 
     formulario(valor?:ModelClientes){
       this.formsgroup = this.fb.group({
-        nombre:[valor?.nombre||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        nombre:[valor?.nombre||'', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
         telefono:[valor?.telefono||'', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
         correo:[valor?.correo||'', [Validators.required, Validators.email]],
-        referencia:[valor?.referencia||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-        estado:[valor?.estado||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-        municipio:[valor?.municipio||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-        colonia:[valor?.colonia||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-        calle:[valor?.calle||'', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-        cp:[valor?.cp||'', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+        referencia:[valor?.referencia||'', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+        estado:[valor?.estado||'', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+        municipio:[valor?.municipio||'', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+        colonia:[valor?.colonia||'', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+        calle:[valor?.calle||'', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+        cp:[valor?.cp||'', [Validators.required, Validators.minLength(3), Validators.maxLength(5)]],
       });
     }
 }

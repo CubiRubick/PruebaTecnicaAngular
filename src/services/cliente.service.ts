@@ -17,9 +17,11 @@ export class ClienteService{
     markerId = 0;
     eventenitter = new EventEmitter();
     constructor(private httpclient: HttpClient){
-
     }
 
+    llenarCliente(cliente:ModelClientes[]){
+        this.clients = cliente
+    }
    /**
     * It returns an observable of the httpclient get request.
     * @returns The httpclient.get() method returns an Observable.
@@ -34,10 +36,14 @@ export class ClienteService{
      * @param {ModelClientes} cliente - ModelClientes
      */
     addcliente(cliente: ModelClientes): void{
+        console.log(cliente)
         this.clients.push(cliente);
+        console.log(this.clients)
         this.httpclient.put(this.path, this.clients).subscribe(
             value=>{
                 this.clients = value;
+                this.llenarCliente(this.clients)
+                console.log(this.clients)
                 this.eventenitter.emit(value);
             }
         )
