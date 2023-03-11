@@ -34,7 +34,7 @@
               </tr>
           </thead>
             <tbody>
-              <tr *ngFor="let client of clients; let i = index" class="row-selected" (click)="obtenerdatos(client)">
+              <tr *ngFor="let client of clients; let i = index" class="row-selected" (click)="obtenerdatos(client); ClickedRow(i)" [class.active]="i == HighlightRow">
                 <td>{{ i }}</td>
                 <td>{{ client.nombre }}</td>
                 <td>{{ client.telefono }}</td>

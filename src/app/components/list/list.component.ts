@@ -4,6 +4,7 @@ import { ModelClientes } from 'src/models/Clientes';
 import { ClienteService } from 'src/services/cliente.service';
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +15,10 @@ import autoTable from 'jspdf-autotable';
 export class ListComponent implements OnInit {
 
   title = 'marca';
+  HighlightRow : Number | undefined;
+  ClickedRow:any;
   clients: ModelClientes[] = [];
+  suscription?: Subscription;
   latin: any = [];
   datos: any = [];
   closeResult = '';
@@ -30,27 +34,37 @@ export class ListComponent implements OnInit {
 
 
 constructor(public clienteservice: ClienteService, private modalService: NgbModal){
-
-/* Checking if the clienteservice.clients array is empty, if it is, it is calling the getcliente()
-method from the clienteservice.ts file. */
-    if(this.clienteservice.clients.length == 0){
-      this.clienteservice.getcliente().subscribe((response:any)=>{
-        this.clients = response
-        this.clienteservice.llenarCliente(response)
-        console.log(response)
-      })
-    }
+  this.ClickedRow = function(index: Number){
+    this.HighlightRow = index;
 }
 
+this.info();
+
+}
 ngOnInit(): void {
-  }
+
+}
 /**
  * It deletes a client.
  * @param {number} x - number
  */
 
-deleteclient(x: number){
-    this.clienteservice.deletecliente(x)
+async deleteclient(x: number){
+  this.clienteservice.deletecliente(x)
+  await this.info()
+  }
+
+/* Checking if the clienteservice.clients array is empty, if it is, it is calling the getcliente()
+method from the clienteservice.ts file. */
+info(){
+    if(this.clienteservice.clients.length == 0){
+      this.clienteservice.getcliente().subscribe((response:any)=>{
+        this.clients = response
+        this.clienteservice.llenarCliente(response)
+      })
+    }else{
+      this.clients = this.clienteservice.clients
+    }
   }
 
 /* A function that opens a modal. */
@@ -110,8 +124,6 @@ if(datas.length > 0){
 
 doc.save('ReporteCliente.pdf');
 
-this.datos = []
-
 }else{
   alert("Se Requiere Seleccionar un cliente")
 }
@@ -125,6 +137,7 @@ this.datos = []
 obtenerdatos(x:ModelClientes){
   const info = [this.clients.indexOf(x), x.nombre, x.telefono, x.correo, x.estado, x.municipio, x.cp, x.fechaCreacion]
   this.datos = info
+
 }
 
 /**
@@ -138,5 +151,4 @@ mostrarUbicacion(x:ModelClientes){
     this.latin.push(response)
   })
 }
-
 }

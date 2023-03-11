@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { ModelClientes } from '../models/Clientes'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 
 @Injectable({
@@ -16,7 +16,13 @@ export class ClienteService{
     latin: any = {}
     markerId = 0;
     eventenitter = new EventEmitter();
+    private _refresh$ = new Subject<void>();
     constructor(private httpclient: HttpClient){
+    }
+
+    get refresh$(){
+        console.log("entro")
+        return this._refresh$
     }
 
     llenarCliente(cliente:ModelClientes[]){
@@ -27,6 +33,7 @@ export class ClienteService{
     * @returns The httpclient.get() method returns an Observable.
     */
     getcliente(){
+        this._refresh$.next();
        return this.httpclient.get(this.path)
     }
 
@@ -43,7 +50,6 @@ export class ClienteService{
             value=>{
                 this.clients = value;
                 this.llenarCliente(this.clients)
-                console.log(this.clients)
                 this.eventenitter.emit(value);
             }
         )
@@ -60,6 +66,7 @@ export class ClienteService{
             this.httpclient.put(this.path, this.clients).subscribe(
                 value=>{
                     this.clients = value;
+                    this._refresh$.next();
                     this.eventenitter.emit(value);
                 }
             )
